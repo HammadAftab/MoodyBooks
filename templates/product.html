@@ -1,0 +1,101 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Book Name
+{% endblock %}
+
+{% block styles %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@1&display=swap" rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+
+<section class="product-page container my-5">
+    <div class="row mt-5"> 
+        <!-- photo section -->
+        <div class="col-lg-5 col-md-12 col-12">
+            <img class="img-fluid w-75" src="/static/img/books/{{ product[4] }}" alt="product-name">
+        </div>
+
+
+        <!-- description section -->
+        <div class="col-lg-6 col-md-12 col-12">
+            
+                <h3 class="py-4" style="font-family: 'DM Serif Display', serif;">{{ product[1] }}</h3>
+                <h2>Rs. {{ product[3] }}</h2>
+                {% if (product[6] > 0) %}
+                    <h4 style="color:lightgreen;">In Stock </h4>
+                    <b>Quantity </b>
+                    <input type="number" value="1" min="1" max="{{ product[6] }}"><br>
+        
+                    <a href="{{ url_for('cart') }}"> 
+                        <button class="btn btn-secondary">Add to cart</button>
+                    </a>
+                    <button class="btn btn-success"> Buy Now </button>
+                
+                {% else %}
+                    <h4 style="color:red"><b><i>Out Of Stock!</i></b></h4>
+                {% endif %}
+                
+                <h4 class="mt-5 mb-3">Book Details</h4>
+                <span>
+                    Author: <b>{{ product[2] }}</b><br>
+                    Publisher: <b>{{ product[8] }}</b><br>
+                    Genre: <b>{{ product[5].capitalize() }}</b><br><br>
+                    About the book:<br>
+                    {{ product[9] }}    
+                </span>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section>
+    <div class="container text-center mt-5 py-5">
+        <h3>Similar category books</h3>
+        <hr class="mx-auto">
+    </div>
+
+    <div class="row mx-auto container-fluid">        
+        <div class="container">
+            <div class='container-fluid'>
+                <div class="row row-cols-1 row-cols-md-3 g-4" style="margin-right: -15px; margin-left: -15px;">
+                {% for book in books %}
+                <!-- <div class="card mx-auto col-md-3 col-10 mt-5"> -->
+                <div class="card mx-auto col-md-3 col-10 mb-4">
+
+                    <!-- Displaying the photo -->
+                    {% if book[4] %}   
+                        <img class='mx-auto img-thumbnail' src="/static/img/books/{{ book[4] }}" width="200px" height="250px" alt="{{ book[1] }}"/>
+                    {% else %}
+                        <p>No photo available</p>
+                    {% endif %}
+                    <div class="card-body text-left mx-auto">
+                        <div class='cvp'>
+                            <h5 class="card-title">{{ book[1] }}</h5>
+                            <p class="card-text" style="text-align:left;">Author: <b> {{ book[2] }} </b><br> Price: <b> Rs. {{ book[3] }} </b></p>
+                            <p class="card-text"></p>
+                            <a href="/product/{{ book[0] }}" class="btn details px-auto">view details</a><br />
+                            <a href="#" class="btn cart px-auto">ADD TO CART</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="mx-auto">
+
+    <br>
+    <div class="mb-3 d-grid col-3 mx-auto">
+        <button onclick="location.href='/'" type="button" class="btn btn-info">Back to home</button>
+    </div>
+</section>
+
+{% endblock %}

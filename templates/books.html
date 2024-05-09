@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+All books
+{% endblock %}
+
+{% block styles %}
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa+Ink:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        .container{
+            margin: 75px auto;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="container">
+    <div class='container-fluid'>
+        <h1 style="font-family: 'Aref Ruqaa Ink', serif;">All books____</h1>
+        <!-- <div class="row row-cols-1 row-cols-md-3 g-4"> -->
+        <div class="row row-cols-1 row-cols-md-3 g-4" style="margin-right: -15px; margin-left: -15px;">
+        {% for book in books %}
+        <!-- <div class="card mx-auto col-md-3 col-10 mt-5"> -->
+        <div class="card mx-auto col-md-3 col-10 mb-4">
+
+            <!-- Displaying the photo -->
+            {% if book[4] %}   
+                <img class='mx-auto img-thumbnail' src="static/img/books/{{ book[4] }}" width="200px" height="250px" alt="{{ book[1] }}"/>
+            {% else %}
+                <p>No photo available</p>
+            {% endif %}
+            <div class="card-body text-left mx-auto">
+                <div class='cvp'>
+                    <h5 class="card-title">{{ book[1] }}</h5>
+                    <p class="card-text" style="text-align:left;">Author: <b> {{ book[2] }} </b><br> Price: <b> Rs. {{ book[3] }} </b></p>
+                    <p class="card-text"></p>
+                    <a href="/product/{{ book[0] }}" class="btn details px-auto">view details</a><br />
+                    <a href="#" class="btn cart px-auto">ADD TO CART</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block content %}
+    <img class="bg-img" src="/static/img/images/banner5.jpg" alt="background image">
+
+    <form action="/login" method="post" style="padding: 20vh ;text-align: center">
+    
+        <div class="mb-3">
+            <h2 style="color:cadetblue; background-color:aliceblue"><b><i>Log In Your Account</i></b></h2>
+        </div><br><br>
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="username" name="username" placeholder="Username" type="text">
+        </div>
+        <div class="mb-3">
+            <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="password">
+        </div>
+        <button class="btn btn-primary" type="submit">Log In</button><br><br><br>
+
+        <div class="mb-3" style="margin-left: 36%; width: 50%; padding: 30px 20px;">
+            <p style="color:cadetblue; background-color:aliceblue; width:53%;"><b><i>Don't have an account? <a href="{{ url_for('signup') }}">Sign Up!</a></i></b></p>
+        </div>
+
+    </form>
+{% endblock %}
+
+
+

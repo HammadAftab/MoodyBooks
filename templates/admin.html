@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+
+{% block title %} 
+Admin Panel
+{% endblock %}
+
+{% block styles %}
+    <style>
+        .form-style{
+            padding: 20vh ;
+            text-align: center;
+            color:aqua;
+        }
+    </style>
+
+{% endblock %}
+
+
+{% block content %}
+<img class="bg-img" src="/static/img/images/banner2.jpg" alt="background image">
+
+<form action="/admin" method="post" enctype="multipart/form-data" class="form-style" style="padding: 20vh ;text-align: center">
+    <h1> Enter Book Details</h1><br>
+
+    <div class="mb-3">
+        <input autofocus autocomplete="off" class="form-control mx-auto w-auto" id="title" name="title" placeholder="Book Title" type="text" required>
+    </div>
+    
+    <div class="mb-3">
+        <input autocomplete="off" class="form-control mx-auto w-auto" id="author" name="author" placeholder="Author" type="text" required>
+    </div>
+    
+    <div class="mb-3">
+        <input autocomplete="off" class="form-control mx-auto w-auto" id="price" name="price" placeholder="Price" type="number" min="0" step="1" required>
+    </div>
+
+    <div class="mb-3">
+        <input autocomplete="off" class="form-control mx-auto w-auto" id="description" name="description" placeholder="Description" type="text">
+    </div>
+    
+    <div class="mb-3">
+        <input autocomplete="off" class="form-control mx-auto w-auto" id="publisher" name="publisher" placeholder="Publisher" type="text">
+    </div>
+
+    <div class="mb-3">
+        <input autocomplete="off" class="form-control mx-auto w-auto" id="stocks" name="stocks" placeholder="Stocks Available" type="number" min="0" step="1" required>
+    </div>
+
+    <div class="mb-3">
+        <input autocomplete="off" class="form-control mx-auto w-auto" id="genre" name="genre" placeholder="Genre" type="text" required>
+    </div>
+
+    <div class="mb-3">
+        <input autocomplete="off" class="form-control mx-auto w-auto" id="ratings" name="ratings" placeholder="Book Ratings (max=5)" type="number" min="0" step="0.1" required>
+    </div>
+
+    <h6>Upload book image</h6>
+    <div class="mb-3">
+        <input type="file" name="image" accept="image/*" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary" style="border-color: antiquewhite;">Upload details</button>
+</form>
+{% endblock %}

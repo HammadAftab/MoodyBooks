@@ -1,0 +1,196 @@
+{% extends 'layout.html' %}
+
+{% block title %} 
+Home 
+{% endblock %}
+
+{% block styles %}
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa+Ink:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        .container{
+            margin: 75px auto;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+
+<!-- Autoplaying carousels start -->
+    
+<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="/static/img/images/banner3.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-caption d-none d-md-block" style="background-color: bisque; width: 25%; margin-left: 25%; margin-bottom: 6%;">
+            <h2 style="color:brown; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"><b>MoodyBooks</b></h2>
+            <p style="font-size: 30; font-family:Georgia, 'Times New Roman', Times, serif ; color: black;">Choose your Book By your Mood!</p>
+        </div>
+        
+        <div class="carousel-item">
+            <img src="/static/img/images/banner5.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="/static/img/images/banner1.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="/static/img/images/banner6.jpg" class="d-block w-100" alt="...">
+        </div>
+
+        <div class="carousel-item">
+            <img src="/static/img/images/banner7.jpg" class="d-block w-100" alt="...">
+        </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+<!-- Autoplaying carousels end -->
+
+
+{% if session["user_id"] %}
+    <div class="container">
+        <div class='container-fluid'>
+            <h1 style="font-family: 'Aref Ruqaa Ink', serif;">Books You May Like_____</h1>
+            <p  style="text-align: right;"><a href="{{ url_for('books') }}">Show all books --></a></p>
+
+            <div class="row row-cols-1 row-cols-md-3 g-4" style="margin-right: -15px; margin-left: -15px;">
+                {% for recommend in recommended %}
+                    <div class="card mx-auto col-md-3 col-10 mb-4">
+                        {% if recommend[4] %}   
+                            <img class='mx-auto img-thumbnail' src="static/img/books/{{ recommend[4] }}" width="200px" height="250px" alt="{{ recommend[1] }}"/>
+                        {% else %}
+                            <p>No photo available</p>
+                        {% endif %}
+                        <div class="card-body text-left mx-auto">
+                            <div class='cvp'>
+                                <h5 class="card-title">{{ recommend[1] }}</h5>
+                                <p class="card-text" style="text-align:left;">Author: <b> {{ recommend[2] }} </b><br> Price: <b> Rs. {{ recommend[3] }} </b></p>
+                                <p class="card-text"></p>
+                                <a href="/product/{{ recommend[0] }}" class="btn details px-auto">view details</a><br />
+                                <a href="#" class="btn cart px-auto">ADD TO CART</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+
+
+
+<div class="container">
+    <div class='container-fluid'>
+        <h1 style="font-family: 'Aref Ruqaa Ink', serif;">Newest Arrivals_____</h1>
+        {% if session["user_id"] %}
+            <p  style="text-align: right;"><a href="{{ url_for('books') }}">Show all books --></a></p>
+        {% else %}
+            <p  style="text-align: right;"><a href="{{ url_for('login') }}">Show all books --></a></p>
+        {% endif %}
+        
+        <div class="row row-cols-1 row-cols-md-3 g-4" style="margin-right: -15px; margin-left: -15px;">
+        {% for new in newest %}
+        <div class="card mx-auto col-md-3 col-10 mb-4">
+
+            <!-- Displaying the photo -->
+            {% if new[4] %}   
+                <img class='mx-auto img-thumbnail' src="static/img/books/{{ new[4] }}" width="200px" height="250px" alt="{{ new[1] }}"/>
+            {% else %}
+                <p>No photo available</p>
+            {% endif %}
+
+            <div class="card-body text-left mx-auto">
+                <div class='cvp'>
+                    <h5 class="card-title">{{ new[1] }}</h5>
+                    <p class="card-text" style="text-align:left;">Author: <b>{{ new[2] }} </b><br> Price: <b> Rs. {{ new[3] }} </b></p>
+                    <p class="card-text"></p>
+                    <a href="/product/{{ new[0] }}" class="btn details px-auto")">view details</a>
+                    <br />
+                    {% if session["user_id"] %}
+                        <a href="#" class="btn cart px-auto">ADD TO CART</a>
+                    {% else %}
+                        <a href="{{ url_for('login') }}" class="btn cart px-auto">ADD TO CART</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class='container-fluid'>
+        <h1 style="font-family: 'Aref Ruqaa Ink', serif;">Bestsellers____</h1>
+        {% if session["user_id"] %}
+            <p  style="text-align: right;"><a href="{{ url_for('books') }}">Show all books --></a></p>
+        {% else %}
+            <p  style="text-align: right;"><a href="{{ url_for('login') }}">Show all books --></a></p>
+        {% endif %}
+
+        <div class="row row-cols-1 row-cols-md-3 g-4" style="margin-right: -15px; margin-left: -15px;">
+        {% for book in books %}
+        <div class="card mx-auto col-md-3 col-10 mb-4">
+
+            <!-- Displaying the photo -->
+            {% if book[4] %}   
+                <img class='mx-auto img-thumbnail' src="static/img/books/{{ book[4] }}" width="200px" height="250px" alt="{{ book[1] }}"/>
+            {% else %}
+                <p>No photo available</p>
+            {% endif %}
+            <div class="card-body text-left mx-auto">
+                <div class='cvp'>
+                    <h5 class="card-title">{{ book[1] }}</h5>
+                    <p class="card-text" style="text-align:left;">Author: <b> {{ book[2] }} </b><br> Price: <b> Rs. {{ book[3] }} </b></p>
+                    <p class="card-text"></p>
+                    <a href="/product/{{ book[0] }}" class="btn details px-auto">view details</a>
+                    <br />
+                    {% if session["user_id"] %}
+                        <a href="#" class="btn cart px-auto">ADD TO CART</a>
+                    {% else %}
+                        <a href="{{ url_for('login') }}" class="btn cart px-auto">ADD TO CART</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+    {% block scripts %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    {% endblock %}
+
+
+{% endblock %}
